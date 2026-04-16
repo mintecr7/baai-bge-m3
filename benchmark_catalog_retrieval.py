@@ -14,6 +14,21 @@ from sentence_transformers import SentenceTransformer
 
 DEFAULT_MODELS = ["BAAI/bge-m3", "Qwen/Qwen3-Embedding-0.6B"]
 DEFAULT_QUERY_INSTRUCTION = "Given a catalog lookup query, retrieve the matching catalog item."
+DEFAULT_OUTPUT_MD = "benchmark_results.md"
+SUMMARY_HEADERS = [
+    "model",
+    "dim",
+    "load_s",
+    "doc_s",
+    "docs/s",
+    "query_batch_s",
+    "q_p50_ms",
+    "q_p95_ms",
+    "search_ms",
+    "recall@1",
+    "recall@5",
+    "mrr@10",
+]
 
 SAMPLE_CATALOG = [
     {"id": "sku-shirt-red-m", "text": "red cotton t-shirt for women size medium"},
@@ -312,21 +327,7 @@ def run_model(
     return result
 
 
-def print_table(results: Sequence[Dict[str, Any]]) -> None:
-    headers = [
-        "model",
-        "dim",
-        "load_s",
-        "doc_s",
-        "docs/s",
-        "query_batch_s",
-        "q_p50_ms",
-        "q_p95_ms",
-        "search_ms",
-        "recall@1",
-        "recall@5",
-        "mrr@10",
-    ]
+def summary_rows(results: Sequence[Dict[str, Any]]) -> List[List[str]]:
     rows = []
     for result in results:
         rows.append(
@@ -345,11 +346,99 @@ def print_table(results: Sequence[Dict[str, Any]]) -> None:
                 f"{result['mrr@10']:.3f}" if "mrr@10" in result else "n/a",
             ]
         )
+    return rows
+
+
+def print_table(results: Sequence[Dict[str, Any]]) -> None:
+    rows = summary_rows(results)
+    headers = SUMMARY_HEADERS
     widths = [max(len(header), *(len(row[idx]) for row in rows)) for idx, header in enumerate(headers)]
     print("  ".join(header.ljust(widths[idx]) for idx, header in enumerate(headers)))
     print("  ".join("-" * widths[idx] for idx in range(len(headers))))
     for row in rows:
         print("  ".join(row[idx].ljust(widths[idx]) for idx in range(len(headers))))
+
+
+def escape_md(value: object) -> str:
+    text = str(value)
+    return text.replace("|", "\\|").replace("\n", "<br>")
+
+
+def markdown_table(headers: Sequence[str], rows: Sequence[Sequence[str]]) -> str:
+    out = [
+        "| " + " | ".join(escape_md(header) for header in headers) + " |",
+        "| " + " | ".join("---" for _ in headers) + " |",
+    ]
+    for row in rows:
+        out.append("| " + " | ".join(escape_md(value) for value in row) + " |")
+    return "\n".join(out)
+
+
+def best_label(results: Sequence[Dict[str, Any]], key: str, *, higher_is_better: bool) -> str:
+    candidates = [r for r in results if key in r and r.get(key) is not None]
+    if not candidates:
+        return "n/a"
+    winner = max(candidates, key=lambda r: float(r[key])) if higher_is_better else min(candidates, key=lambda r: float(r[key]))
+    value = float(winner[key])
+    suffix = "ms" if key.endswith("_ms") else ""
+    return f"{winner['model']} ({value:.3f}{suffix})"
+
+
+def render_markdown_report(
+    results: Sequence[Dict[str, Any]],
+    args: argparse.Namespace,
+    *,
+    used_sample_data: bool,
+) -> str:
+    generated_at = time.strftime("%Y-%m-%d %H:%M:%S %Z")
+    catalog_count = results[0]["catalog_count"] if results else 0
+    query_count = results[0]["query_count"] if results else 0
+    lines = [
+        "# Catalog Retrieval Benchmark",
+        "",
+        f"- Generated: {generated_at}",
+        f"- Dataset: {'built-in tiny sample' if used_sample_data else 'custom files'}",
+        f"- Catalog items: {catalog_count}",
+        f"- Queries: {query_count}",
+        f"- Device: {results[0]['device'] if results else resolve_device(args.device)}",
+        f"- Top K: {args.top_k}",
+        f"- Query instruction: `{args.query_instruction}`",
+        "",
+        "## Summary Scores",
+        "",
+        markdown_table(SUMMARY_HEADERS, summary_rows(results)),
+        "",
+        "## Best By Metric",
+        "",
+        f"- Highest recall@1: {best_label(results, 'recall@1', higher_is_better=True)}",
+        f"- Highest recall@5: {best_label(results, 'recall@5', higher_is_better=True)}",
+        f"- Highest mrr@10: {best_label(results, 'mrr@10', higher_is_better=True)}",
+        f"- Fastest query p50: {best_label(results, 'query_p50_ms', higher_is_better=False)}",
+        f"- Fastest query p95: {best_label(results, 'query_p95_ms', higher_is_better=False)}",
+        f"- Highest document throughput: {best_label(results, 'docs_per_s', higher_is_better=True)}",
+        "",
+        "## Example Rankings",
+        "",
+    ]
+
+    for result in results:
+        lines.extend([f"### {result['model']}", ""])
+        if not result["top_examples"]:
+            lines.extend(["No examples captured.", ""])
+            continue
+        for example in result["top_examples"]:
+            expected = ", ".join(example["expected_ids"]) or "n/a"
+            top_ids = ", ".join(example["top_ids"]) or "n/a"
+            lines.extend(
+                [
+                    f"- Query: `{example['query']}`",
+                    f"  Expected: `{expected}`",
+                    f"  Top IDs: `{top_ids}`",
+                ]
+            )
+        lines.append("")
+
+    return "\n".join(lines).rstrip() + "\n"
 
 
 def parse_args() -> argparse.Namespace:
@@ -373,6 +462,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--query-instruction", default=DEFAULT_QUERY_INSTRUCTION)
     parser.add_argument("--allow-download", action="store_true", help="Allow Hugging Face downloads if a model is not cached.")
     parser.add_argument("--output-json", help="Write detailed benchmark results to this path.")
+    parser.add_argument(
+        "--output-md",
+        default=DEFAULT_OUTPUT_MD,
+        help=f"Write a Markdown benchmark report to this path. Defaults to {DEFAULT_OUTPUT_MD}.",
+    )
     return parser.parse_args()
 
 
@@ -406,6 +500,15 @@ def main() -> None:
     if args.output_json:
         Path(args.output_json).write_text(json.dumps(results, indent=2), encoding="utf-8")
         print(f"\nWrote {args.output_json}")
+
+    if args.output_md:
+        report = render_markdown_report(
+            results,
+            args,
+            used_sample_data=sample_catalog or sample_queries,
+        )
+        Path(args.output_md).write_text(report, encoding="utf-8")
+        print(f"Wrote {args.output_md}")
 
 
 if __name__ == "__main__":

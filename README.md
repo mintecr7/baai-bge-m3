@@ -35,6 +35,9 @@ Run the built-in smoke benchmark:
 lang/bin/python benchmark_catalog_retrieval.py
 ```
 
+This writes `benchmark_results.md` by default with recall, MRR, latency, and
+throughput scores.
+
 Run against your own catalog and labeled queries:
 
 ```bash
@@ -42,7 +45,8 @@ lang/bin/python benchmark_catalog_retrieval.py \
   --catalog catalog.jsonl \
   --queries queries.jsonl \
   --model BAAI/bge-m3 \
-  --model Qwen/Qwen3-Embedding-0.6B
+  --model Qwen/Qwen3-Embedding-0.6B \
+  --output-md benchmark_results.md
 ```
 
 Expected query records should include a query field plus `expected_id` or
