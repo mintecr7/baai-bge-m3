@@ -2,29 +2,39 @@ import gc
 import os
 import torch
 from pydantic import BaseModel
-from typing import List, Literal
+from typing import List, Literal, Union
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, Body
 from sentence_transformers import SentenceTransformer
 
-_QUERY_INSTRUCT = "Given a web search query, retrieve relevant passages that answer the query."
-_QUERY_PROMPT = f"<instruct>{_QUERY_INSTRUCT}\n<query>"
+QUERY_INSTRUCT = os.getenv(
+    "EMBED_QUERY_INSTRUCTION",
+    "Given a catalog lookup query, retrieve the matching catalog item.",
+)
+QUERY_PROMPT = f"Instruct: {QUERY_INSTRUCT}\nQuery:"
 
 class BatchRequest(BaseModel):
     texts: List[str]
     mode: Literal["doc", "query"] = "doc"
 
 # Global variables
-MODEL_NAME = os.getenv("EMBED_MODEL_NAME", "Qwen/Qwen3-Embedding-4B")
+MODEL_NAME = os.getenv("EMBED_MODEL_NAME", "Qwen/Qwen3-Embedding-0.6B")
 model = None
 device = None
 
 class TextRequest(BaseModel):
     text: str
+    mode: Literal["doc", "query"] = "doc"
 
 class EmbeddingResponse(BaseModel):
     embedding: List[float]
     dimension: int
+
+
+def encode_kwargs(mode: Literal["doc", "query"]):
+    if mode == "query" and "qwen" in MODEL_NAME.lower():
+        return {"prompt": QUERY_PROMPT}
+    return {}
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -73,7 +83,8 @@ async def get_embedding(request: TextRequest):
             convert_to_numpy=True,
             normalize_embeddings=True,
             show_progress_bar=False,
-            batch_size=1
+            batch_size=1,
+            **encode_kwargs(request.mode),
         )
         
         embedding_list = embedding.tolist()
@@ -89,7 +100,7 @@ async def get_embedding(request: TextRequest):
 
 
 @app.post("/embed/batch")
-async def get_embeddings_batch(texts: List[str] = Body(...)):
+async def get_embeddings_batch(payload: Union[List[str], BatchRequest] = Body(...)):
     """
     MPS-safe batch embedding:
       - server-side chunking
@@ -99,6 +110,13 @@ async def get_embeddings_batch(texts: List[str] = Body(...)):
     """
     if model is None:
         raise HTTPException(status_code=503, detail="Model not loaded")
+
+    if isinstance(payload, BatchRequest):
+        texts = payload.texts
+        mode = payload.mode
+    else:
+        texts = payload
+        mode = "doc"
 
     if not texts:
         return {"embeddings": [], "count": 0, "dimension": 0}
@@ -122,6 +140,7 @@ async def get_embeddings_batch(texts: List[str] = Body(...)):
                     normalize_embeddings=True,
                     show_progress_bar=False,
                     batch_size=min(8, len(chunk)),  # keep small on MPS
+                    **encode_kwargs(mode),
                 )
                 all_embeddings.extend(vecs.tolist())
 
@@ -154,7 +173,8 @@ async def root():
         "status": "running",
         "device": str(device),
         "optimized_for": "Apple M4",
-        "model": MODEL_NAME
+        "model": MODEL_NAME,
+        "query_instruction": QUERY_INSTRUCT,
     }
 
 @app.get("/health")
@@ -163,6 +183,7 @@ async def health():
         "ready": model is not None,
         "device": str(device),
         "model": MODEL_NAME,
+        "query_instruction": QUERY_INSTRUCT,
         "mps_available": torch.backends.mps.is_available()
     }
 
