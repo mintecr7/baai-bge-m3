@@ -1,0 +1,100 @@
+{"query": "find company kssungsun@gmail.com Dermatology and Beauty Care", "expected_id": "company:b8783940-9db0-4311-9c61-e99cb97de91c"}
+{"query": "find company Twohands Interactive Inc. Medical IT Systems/Solutions / Physical Therapy/Rehabilitation/Prehabilitation", "expected_id": "company:223758a2-dd4e-4816-9f53-af5073c7d7a0"}
+{"query": "find company Kangwon National University RISE Project Group Bio/Pharmaceutical Devices / Medical IT Systems/Solutions / Clinical Examination and Diagnostics C604", "expected_id": "company:a1fd5777-7732-4e45-9036-11be529ec8bb"}
+{"query": "find company JS TECHWIN Medical Imaging Diagnostics B610", "expected_id": "company:3d5173a7-5ef9-42d6-af90-fc67050e931b"}
+{"query": "find company EROP Co., Ltd. Bio/Pharmaceutical Devices / Medical Device Components and Materials / Operating Equipment B610", "expected_id": "company:12760401-e864-402c-895e-c895af4dff4f"}
+{"query": "find company MANTIZ CO.,LTD. Dermatology and Beauty Care / Bio/Pharmaceutical Devices / Disposable Medical Supplies / Consumables / and Others / Medical Device Components and Materials B610", "expected_id": "company:a68a099a-e4ec-4742-b4fa-5ae0df2a8304"}
+{"query": "find company SPORTEC Services and Business Support B828", "expected_id": "company:d80b6ac6-92d3-4b7d-a650-9105890df50f"}
+{"query": "find company Jiangyin Puku Medical Technology Co.,Ltd. Disposable Medical Supplies / Consumables / and Others / Medical Device Components and Materials AL209", "expected_id": "company:a856650a-fd1a-4997-ad77-fd79fba6c714"}
+{"query": "find company Jiaxing Health Medical Technology Co., Ltd. Disposable Medical Supplies / Consumables / and Others AL208", "expected_id": "company:6e5992f4-5795-47e9-a7f5-e2ab7d97d3d3"}
+{"query": "find company INESEN BIO. CO., Ltd Dermatology and Beauty Care", "expected_id": "company:65c52a63-6ee1-4a70-aa6d-3e54b160df4f"}
+{"query": "find company Vivo Bio Tech Ltd. Services and Business Support BL204", "expected_id": "company:63d46340-3444-4ae6-8067-8cbd9d41349b"}
+{"query": "find company Porex Care Equipment / Bio/Pharmaceutical Devices / Disposable Medical Supplies / Consumables / and Others / Clinical and Laboratory Testing / Hospital Equipment and Emergency Devices / Medical Device Components and Materials / Operating Equipment / Clinical Examination and Diagnostics AL308", "expected_id": "company:33a2f9bd-ff55-40cc-8b16-c21ce5e6cd4c"}
+{"query": "find company KAMTOUR Association Services and Business Support G903", "expected_id": "company:0d220052-2ef0-42dc-b366-63a881791c35"}
+{"query": "find company BUMIN PRESTIGE LIFECARE CENTER Clinical Examination and Diagnostics G708", "expected_id": "company:043d2816-5929-4fff-b8d7-e94451e15fb0"}
+{"query": "find company MEDISBY Co. Ltd. Physical Therapy/Rehabilitation/Prehabilitation C428", "expected_id": "company:02a1472b-0bf7-4288-b773-71924c1c78f4"}
+{"query": "find company State of Utah Services and Business Support G900", "expected_id": "company:fcfd6db4-a7e1-47af-b180-03a915d4051d"}
+{"query": "find company AIDOT Inc. C428", "expected_id": "company:ede101f6-ed58-42a5-8d3d-92e3c8e247a1"}
+{"query": "find company infyni Physical Therapy/Rehabilitation/Prehabilitation G404", "expected_id": "company:eaa36ab7-dee5-4ef2-9c6a-c9f073f4ce32"}
+{"query": "find company N2 Physical Therapy/Rehabilitation/Prehabilitation B217", "expected_id": "company:da8b66a3-1e21-4e14-bdd3-fb9ecb4508cc"}
+{"query": "find company AB Plastic Surgery Dermatology and Beauty Care G840", "expected_id": "company:d9595529-1e35-4718-8f0e-3973fac9bd00"}
+{"query": "find company Bright Eye Clinic Services and Business Support G824", "expected_id": "company:d958565d-ec12-4ba9-9eee-99f4a70606f8"}
+{"query": "find company MediThinQ Operating Equipment C428", "expected_id": "company:d51e76f6-6744-446f-a0ca-5d73db4409e3"}
+{"query": "find company innomes Medical IT Systems/Solutions G602", "expected_id": "company:cacc2571-9843-47b6-a5c6-40dcabafb1c1"}
+{"query": "find company UMJI HEART CARE Medical Device Components and Materials B222", "expected_id": "company:c61dc3ad-9411-40f8-abd9-c8e355aa05a7"}
+{"query": "find company Personal Beauty GU Clinic Dermatology and Beauty Care G835", "expected_id": "company:be729f12-75a4-4bd7-ae03-ac315bc3a168"}
+{"query": "find company CONNECTEVE Co., Ltd. Medical IT Systems/Solutions G501", "expected_id": "company:b7ac8580-f23a-4f9d-993a-4433f0c2514d"}
+{"query": "find company Senior Tech Solution Co., Ltd. Medical IT Systems/Solutions B224", "expected_id": "company:b14a6e38-0dbc-460b-a25a-3a8218c73ed6"}
+{"query": "find company CertiLife Corp. Medical IT Systems/Solutions", "expected_id": "company:a949c29e-12cd-4ed6-ab61-cc01f5f59929"}
+{"query": "find company SNU EYE CLINIC Services and Business Support G834", "expected_id": "company:99316b26-d6ca-41e2-aeff-c2b132980d3e"}
+{"query": "find company Phytoalexin Co., Ltd. Medical Device Components and Materials B317", "expected_id": "company:96dd6180-b868-44cf-82fd-035c8d9d9a42"}
+{"query": "find company RKnDmed Inc. Hospital Equipment and Emergency Devices C428", "expected_id": "company:95007577-2261-4880-91f8-665dea20255b"}
+{"query": "find company BSM EYE CLINIC Clinical Examination and Diagnostics G830", "expected_id": "company:8a2f1834-39d9-40d3-9dc6-5a9f721bd02b"}
+{"query": "find company ICE LINKER Dermatology and Beauty Care", "expected_id": "company:89140016-4c3b-4e8d-b922-ac86a624f957"}
+{"query": "find company XEROmotion Medical IT Systems/Solutions", "expected_id": "company:815b0514-23a9-4740-bed5-3dc2b48f89d2"}
+{"query": "find company DAEJEON TOURISM ORGANIZATION Services and Business Support G704", "expected_id": "company:7e548853-fd0b-43cd-90b5-bcfe7e7bcbea"}
+{"query": "find company PENTAS KOREA CO., LTD. Disposable Medical Supplies / Consumables / and Others / Operating Equipment B318", "expected_id": "company:7a836daf-d20c-46aa-b754-7940c792fc88"}
+{"query": "find company Forever18 International Co.,Ltd Dermatology and Beauty Care", "expected_id": "company:76767565-bb6f-4955-b7ad-a2f011641099"}
+{"query": "find company HealthAll Medical IT Systems/Solutions G403", "expected_id": "company:742a6678-73b0-4997-9fae-dc80598ea9a3"}
+{"query": "find company PINESCIENCE Medical IT Systems/Solutions G604", "expected_id": "company:7025e4d3-e8eb-4ba5-84d1-b532711595c2"}
+{"query": "find company MEDIWORKER Co., LTD Physical Therapy/Rehabilitation/Prehabilitation B216", "expected_id": "company:62cae47c-25ea-4a64-ba18-ec3eee464d96"}
+{"query": "find company SHIHWA MEDICAL CENTER Services and Business Support G824", "expected_id": "company:61ac6aee-5b79-4956-b417-51046e7a4c60"}
+{"query": "find company VIV Health Inc. Medical IT Systems/Solutions G401", "expected_id": "company:5a543f7b-ba7c-4d5c-8f37-dff078e48df1"}
+{"query": "find company UANMEDI Co., Ltd. Dermatology and Beauty Care", "expected_id": "company:5a017142-4f7c-4aa6-8af3-82a4da0a9f1c"}
+{"query": "find company Humenic Co., Ltd. Medical IT Systems/Solutions G405", "expected_id": "company:570ae9d1-7020-4880-883a-b4c5824aac13"}
+{"query": "find company hanmed Physical Therapy/Rehabilitation/Prehabilitation B210", "expected_id": "company:49ba3b5c-95d0-4d64-bc54-946faefe0b13"}
+{"query": "find company WELT Corp. Medical IT Systems/Solutions G506", "expected_id": "company:3f05d4d4-3721-40dd-bb3c-22c401d21e34"}
+{"query": "find company Aima Beyond Ai D820", "expected_id": "company:3c3b0ad5-596c-45ab-990c-e1303de7ef38"}
+{"query": "find company DAEAT KOREAN MEDICINE CLINIC Services and Business Support G840", "expected_id": "company:3a8e8593-3bd3-4e31-9fd9-0eb60194cc03"}
+{"query": "find company SILLA SYSTEM Medical IT Systems/Solutions / Medical Imaging Diagnostics G400", "expected_id": "company:30ff2d26-6bfb-4d86-934c-68bf79fd269c"}
+{"query": "find company CareCraft Korea Inc. Services and Business Support G904", "expected_id": "company:24a65e74-3db0-4b11-a3ac-f30c14fee0e5"}
+{"query": "find product Dr.Jin Nicojini Dr.Jin Nicojini Innerwave Inc. AI Software", "expected_id": "product:2fa9a93b-1b98-4a08-96b6-8d489a1b4da4"}
+{"query": "find product Precision MR(MDR 인증) Hydrumedical SA Other Care Devices", "expected_id": "product:e922bcb0-01ef-49c1-b83a-cc3a3702e4d6"}
+{"query": "find product 현장 진단(Point-of-Care, POC) 기기 Labmaster Oy Other Imaging Diagnostic Devices and Supplies", "expected_id": "product:e8496c41-f1be-4a9a-b91f-ff4b26064524"}
+{"query": "find product Pelham Crescent Pelham Crescent Other Care Devices", "expected_id": "product:c2a0f679-63fe-4329-9afd-4a651ec38de2"}
+{"query": "find product Neuroelectrics Neuroelectrics Other Imaging Diagnostic Devices and Supplies", "expected_id": "product:a9c63608-081d-42bc-b625-d4698a0dd473"}
+{"query": "find product Sapi Med Medical Device Materials and Raw Materials", "expected_id": "product:a8a8dab5-b6e8-4036-aed0-7e00cb30c851"}
+{"query": "find product SOLECOOLER SOLECOOLER Other Physical Therapy/Rehabilitation/Prevention Devices", "expected_id": "product:a7921e03-33ed-4a2e-b1ff-874999b57e06"}
+{"query": "find product platform technology platform technology Genomtec S.A. Other Examination and Diagnostic Devices", "expected_id": "product:95e059d8-66be-4c78-be39-00da7d1bd808"}
+{"query": "find product I.M.D. GENERATORS SRL I.M.D. GENERATORS SRL I.M.D. GENERATORS SRL X-Ray", "expected_id": "product:79ef15ac-07d9-4e6f-ba8a-5832cd028daa"}
+{"query": "find product MARIE MARIE Oxlantic Medical AB Other Imaging Diagnostic Devices and Supplies", "expected_id": "product:6bb1f3b0-9f9f-49a6-94bd-f58ce623134f"}
+{"query": "find product PATH MEDICAL PATH MEDICAL Other Care Devices", "expected_id": "product:3033b724-1eb9-4178-88b1-12f260347c80"}
+{"query": "find product Kinestica d.o.o. Kinestica d.o.o. Kinestica d.o.o. Other Physical Therapy/Rehabilitation/Prevention Devices", "expected_id": "product:2c93422c-4f9f-4116-94f5-2770e7ee6356"}
+{"query": "find product CHIRMED Fabryka Narzedzi Medycznych Marcin Dyner CHIRMED Fabryka Narzedzi Medycznych Marcin Dyner X-Ray", "expected_id": "product:24bdeaec-9125-447a-8c71-9e0a006c0b40"}
+{"query": "find product PROLAB PROLAB Other Bio/Pharmaceutical Devices", "expected_id": "product:00d168d7-7883-4780-a1cd-5f2d00c65155"}
+{"query": "find product PLASOMA PLASOMA PLASOMA Other Care Devices", "expected_id": "product:ac526f67-d93f-4112-9fee-da947edac8fe"}
+{"query": "find product SURGELOUP®AX55 X5.5 TTL Loupes CRYSTALOPTIC Co.,Ltd Other Surgical Devices", "expected_id": "product:e9f61e48-80b9-47e4-aa3a-c668c613f274"}
+{"query": "find product SURGELOUP®GX25 X2.5 TTL Loupes CRYSTALOPTIC Co.,Ltd Other Surgical Devices", "expected_id": "product:96100934-bcd9-4cfb-8b17-e1481afa8efe"}
+{"query": "find product SURGELOUP®AX40 X4.0 TTL Loupes CRYSTALOPTIC Co.,Ltd Other Surgical Devices", "expected_id": "product:80c59904-0f38-415a-88e3-9a2a6df4420d"}
+{"query": "find product SURGELOUP®GX33 X3.3 TTL Loupes CRYSTALOPTIC Co.,Ltd Other Surgical Devices", "expected_id": "product:5a7de4b0-d18f-49ad-8792-760fc7f78557"}
+{"query": "find product NeckWare™ HeadLight Head Light CRYSTALOPTIC Co.,Ltd Other Surgical Devices", "expected_id": "product:107f7ddc-ebd4-4748-a207-d86918408bc9"}
+{"query": "find product Hospital Radiation Monitoring System RMS-H JS TECHWIN Radiology Supplies", "expected_id": "product:f9c8b8cb-75de-430d-be0d-a0713bee1599"}
+{"query": "find product BioGrab_Chest BGCB YUNBIOTECH Rehabilitation Braces and Splints", "expected_id": "product:e8a38e5c-0890-44c8-bf85-61700d8eeb47"}
+{"query": "find product Slowave1.0 SW-100 Slowave Inc. Vital Sign Monitoring Devices", "expected_id": "product:e4cb4b50-9ac8-4ce7-9ccc-f726d322a080"}
+{"query": "find product Gamma Probe JS-Gamma Pro 1 JS TEFCHWIN Other Imaging Diagnostic Devices and Supplies", "expected_id": "product:df8d0461-4b85-4550-a3a7-6f7f17094fe6"}
+{"query": "find product XE-LHA Y XE-LHA Y Dr JCOS Inc Dermatology Procedures", "expected_id": "product:dd9402cf-68b5-466b-b449-61d8705435c9"}
+{"query": "find product BioGrab_Cock-up HGCU YUNBIOTECH Rehabilitation Braces and Splints", "expected_id": "product:d507fb41-15c1-463c-b584-22fbc62094cd"}
+{"query": "find product STARKEEPER STARKEEPER YUNBIOTECH Other Physical Therapy/Rehabilitation/Prevention Devices", "expected_id": "product:d4b05ebd-ab0f-4d83-8f31-fb776768f78f"}
+{"query": "find product Well Balance Compression Band Well Balance Package Works Other Physical Therapy/Rehabilitation/Prevention Devices", "expected_id": "product:cca228db-cf63-4ddd-b5ab-1f39d74fde0c"}
+{"query": "find product Real-time Radiation Personal Dosimeter RRPD JS TECHWIN Radiology Supplies", "expected_id": "product:c4598969-6d15-4192-b0c0-b331ad06e2fa"}
+{"query": "find product BioGrab_Cylinder BGCL YUNBIOTECH Rehabilitation Braces and Splints", "expected_id": "product:c23a03dc-6433-40a7-82de-35a5dc26d9dc"}
+{"query": "find product Slowave1.0 Wellness SC-0100 Slowave Inc. Vital Sign Monitoring Devices", "expected_id": "product:c1114a98-5170-47bd-9e1f-2cb401906a91"}
+{"query": "find product BioGrab_Long Arm BGLA YUNBIOTECH Rehabilitation Braces and Splints", "expected_id": "product:bb6abf4b-e32f-4d71-a054-cdddb2b163ce"}
+{"query": "find product BioGrab_Thumb-Spica&Ulnar Gutter BGTS YUNBIOTECH Rehabilitation Braces and Splints", "expected_id": "product:ace7f4a3-002d-4ae0-b440-5f1ec37d832a"}
+{"query": "find product Handheld Radiation Survey Meter RADE-c JS TECHWIN Radiology Supplies", "expected_id": "product:a4875b37-ceeb-4764-84bf-67e2b8dd2801"}
+{"query": "find product COOL FIX COOLFIX YUNBIOTECH Other Physical Therapy/Rehabilitation/Prevention Devices", "expected_id": "product:a2ace8d8-a816-452f-bfb0-efd0865e4ce8"}
+{"query": "find product Radiation Monitoring System (RMS-F) RMS-F JS TECHWIN Other Hospital Equipment and Emergency Devices", "expected_id": "product:9cb26465-d6aa-4ec1-84d6-8605f0688590"}
+{"query": "find product Rooftop Radiation Monitoring System (RMS-R) RMS-R JS TECHWIN Radiology Supplies", "expected_id": "product:71610259-4fd9-4826-975a-6ddaf89353da"}
+{"query": "find product BioGra_Finger BGFG YUNBIOTECH Rehabilitation Braces and Splints", "expected_id": "product:6988df69-171f-412e-97b4-46a4902c48d0"}
+{"query": "find product BioGrab_Ankle BGAK YUNBIOTECH Rehabilitation Braces and Splints", "expected_id": "product:55f3b693-cacd-4271-8abc-ec59974c22cb"}
+{"query": "find product DiveOne DiveOne Slowave Inc. Vital Sign Monitoring Devices", "expected_id": "product:44212300-9424-47dc-a113-69f4491489fc"}
+{"query": "find product STARFIX CAST SHOES CASTSHOES YUNBIOTECH Other Physical Therapy/Rehabilitation/Prevention Devices", "expected_id": "product:302f13e1-779f-43ed-a08a-f47ba4992f07"}
+{"query": "find product SMARTLUX MINI SMARTLUX MINI MEDMIX Co.,Ltd Dermatology Medical Devices", "expected_id": "product:e6c2d452-1600-41a2-9485-96e8acae5d03"}
+{"query": "find product TRAMS TRAMS CORESOLUTION Computer System for Hospital Management", "expected_id": "product:cbeee673-4d6c-4209-b6e5-33ce6cd6a116"}
+{"query": "find product A+LASER A+LASER MEDMIX Co.,Ltd Dermatology Medical Devices", "expected_id": "product:c09e8248-eec4-4946-ba13-303375306412"}
+{"query": "find product gipsme gipsme Cherubsmedi Orthopedic Corrective Devices", "expected_id": "product:a943c323-c5ce-4771-8818-94483a926bf7"}
+{"query": "find product CAREVRIGHT CAREVRIGHT MEDMIX Co.,Ltd Other Dermatology and Beauty Care Devices", "expected_id": "product:a061c095-8d28-4cf9-85a2-5b7477459378"}
+{"query": "find product ESTHELUX PRO ESTHELUX PRO MEDMIX Co.,Ltd Dermatology Medical Devices", "expected_id": "product:7a765930-b579-4d9e-9185-1660ff687dfe"}
+{"query": "find product EUROPEAN E-SCAR EUROPEAN E-SCAR M-technologies Dermatology Medical Devices", "expected_id": "product:31821b34-a798-4e67-8810-ece87506fc25"}
+{"query": "find product Chemirosa Chemirosa LABORATORIOS ERN, S.A. Cryotherapy Systems", "expected_id": "product:02a8a8b7-6839-4df3-9b07-d9a095a2bd0f"}
+{"query": "find product BIOSTRENGTH BIOSTRENGTH Technogym Other Physical Therapy/Rehabilitation/Prevention Devices", "expected_id": "product:f1d9aa10-fa4b-44d6-8af3-d1db1bd9225b"}

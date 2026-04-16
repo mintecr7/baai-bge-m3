@@ -118,6 +118,12 @@ def parse_expected_ids(value: Any) -> List[str]:
     return [text.strip()] if text.strip() else []
 
 
+def limit_text(text: str, max_chars: Optional[int]) -> str:
+    if max_chars is None or max_chars <= 0:
+        return text
+    return text[:max_chars]
+
+
 def load_catalog(args: argparse.Namespace) -> Tuple[List[str], List[str], bool]:
     records = SAMPLE_CATALOG if args.catalog is None else read_records(Path(args.catalog))
     if args.limit_catalog:
@@ -131,7 +137,8 @@ def load_catalog(args: argparse.Namespace) -> Tuple[List[str], List[str], bool]:
     for idx, record in enumerate(records):
         doc_id = first_present(record, id_fields)
         ids.append(doc_id or str(idx))
-        texts.append(record_text(record, args.text_field, ("id", "sku", "product_id", "item_id")))
+        text = record_text(record, args.text_field, ("id", "sku", "product_id", "item_id"))
+        texts.append(limit_text(text, args.max_doc_chars))
     return ids, texts, args.catalog is None
 
 
@@ -158,7 +165,7 @@ def load_queries(args: argparse.Namespace) -> Tuple[List[QueryCase], bool]:
                 if field in record:
                     expected_value = record[field]
                     break
-        queries.append(QueryCase(text=text, expected_ids=parse_expected_ids(expected_value)))
+        queries.append(QueryCase(text=limit_text(text, args.max_query_chars), expected_ids=parse_expected_ids(expected_value)))
     return queries, args.queries is None
 
 
@@ -216,6 +223,20 @@ def topk_search(query_vectors: np.ndarray, doc_vectors: np.ndarray, top_k: int) 
     return np.take_along_axis(unsorted, order, axis=1)
 
 
+def unique_ranked_ids(indices: Sequence[int], doc_ids: Sequence[str], limit: Optional[int] = None) -> List[str]:
+    ranked: List[str] = []
+    seen: set[str] = set()
+    for doc_idx in indices:
+        doc_id = doc_ids[int(doc_idx)]
+        if doc_id in seen:
+            continue
+        seen.add(doc_id)
+        ranked.append(doc_id)
+        if limit is not None and len(ranked) >= limit:
+            break
+    return ranked
+
+
 def percentile_ms(values: Sequence[float], percentile: float) -> float:
     if not values:
         return 0.0
@@ -226,13 +247,14 @@ def retrieval_metrics(top_indices: np.ndarray, queries: Sequence[QueryCase], doc
     labeled = [(idx, set(q.expected_ids)) for idx, q in enumerate(queries) if q.expected_ids]
     if not labeled:
         return {}
+    ranked_ids_by_query = [unique_ranked_ids(row, doc_ids) for row in top_indices]
 
     metrics: Dict[str, float] = {}
     for k in (1, 5, 10):
         recalls = []
         hits = []
         for query_idx, expected in labeled:
-            top_ids = {doc_ids[i] for i in top_indices[query_idx, : min(k, top_indices.shape[1])]}
+            top_ids = set(ranked_ids_by_query[query_idx][:k])
             hit_count = len(top_ids & expected)
             recalls.append(hit_count / len(expected))
             hits.append(1.0 if hit_count else 0.0)
@@ -242,8 +264,8 @@ def retrieval_metrics(top_indices: np.ndarray, queries: Sequence[QueryCase], doc
     reciprocal_ranks = []
     for query_idx, expected in labeled:
         rr = 0.0
-        for rank, doc_idx in enumerate(top_indices[query_idx, : min(10, top_indices.shape[1])], start=1):
-            if doc_ids[doc_idx] in expected:
+        for rank, doc_id in enumerate(ranked_ids_by_query[query_idx][:10], start=1):
+            if doc_id in expected:
                 rr = 1.0 / rank
                 break
         reciprocal_ranks.append(rr)
@@ -314,11 +336,16 @@ def run_model(
     result.update(retrieval_metrics(top_indices, queries, doc_ids))
 
     for query_idx, query in enumerate(queries[: args.show_examples]):
+        top_ids = unique_ranked_ids(
+            top_indices[query_idx],
+            doc_ids,
+            limit=min(args.example_top_k, args.top_k),
+        )
         result["top_examples"].append(
             {
                 "query": query.text,
                 "expected_ids": query.expected_ids,
-                "top_ids": [doc_ids[i] for i in top_indices[query_idx, : min(args.top_k, top_indices.shape[1])]],
+                "top_ids": top_ids,
             }
         )
 
@@ -398,10 +425,14 @@ def render_markdown_report(
         "",
         f"- Generated: {generated_at}",
         f"- Dataset: {'built-in tiny sample' if used_sample_data else 'custom files'}",
+        f"- Catalog source: `{args.catalog or 'built-in sample'}`",
+        f"- Query source: `{args.queries or 'built-in sample'}`",
         f"- Catalog items: {catalog_count}",
         f"- Queries: {query_count}",
         f"- Device: {results[0]['device'] if results else resolve_device(args.device)}",
         f"- Top K: {args.top_k}",
+        f"- Max doc chars: {args.max_doc_chars}",
+        f"- Max query chars: {args.max_query_chars}",
         f"- Query instruction: `{args.query_instruction}`",
         "",
         "## Summary Scores",
@@ -456,9 +487,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--top-k", type=int, default=10)
     parser.add_argument("--limit-catalog", type=int)
     parser.add_argument("--limit-queries", type=int)
+    parser.add_argument("--max-doc-chars", type=int, default=2000, help="Truncate catalog document text before embedding.")
+    parser.add_argument("--max-query-chars", type=int, default=500, help="Truncate query text before embedding.")
     parser.add_argument("--latency-samples", type=int, default=20)
     parser.add_argument("--query-repeats", type=int, default=1)
     parser.add_argument("--show-examples", type=int, default=3)
+    parser.add_argument("--example-top-k", type=int, default=10)
     parser.add_argument("--query-instruction", default=DEFAULT_QUERY_INSTRUCTION)
     parser.add_argument("--allow-download", action="store_true", help="Allow Hugging Face downloads if a model is not cached.")
     parser.add_argument("--output-json", help="Write detailed benchmark results to this path.")
