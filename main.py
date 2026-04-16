@@ -15,6 +15,7 @@ class BatchRequest(BaseModel):
     mode: Literal["doc", "query"] = "doc"
 
 # Global variables
+MODEL_NAME = os.getenv("EMBED_MODEL_NAME", "Qwen/Qwen3-Embedding-4B")
 model = None
 device = None
 
@@ -40,16 +41,10 @@ async def lifespan(app: FastAPI):
         device = "cpu"
         print("MPS not available, using CPU")
     
-    model_name = 'BAAI/bge-m3'
-    
-    # model_name = 'all-mpnet-base-v2'
-    
-    # model_name = 'Qwen/Qwen3-Embedding-4B'
-    
-    print(f"Loading model: {model_name}")
+    print(f"Loading model: {MODEL_NAME}")
     
     model = SentenceTransformer(
-        model_name,
+        MODEL_NAME,
         device=device,
         trust_remote_code=True
     )
@@ -159,7 +154,7 @@ async def root():
         "status": "running",
         "device": str(device),
         "optimized_for": "Apple M4",
-        "model": "Fast Embedding Model"
+        "model": MODEL_NAME
     }
 
 @app.get("/health")
@@ -167,6 +162,7 @@ async def health():
     return {
         "ready": model is not None,
         "device": str(device),
+        "model": MODEL_NAME,
         "mps_available": torch.backends.mps.is_available()
     }
 
